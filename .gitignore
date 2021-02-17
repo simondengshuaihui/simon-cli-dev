@@ -1,4 +1,4 @@
 .vscode
 .idea
-node_moudules
-package/**/node_moudules
+node_modules
+package/**/node_modules

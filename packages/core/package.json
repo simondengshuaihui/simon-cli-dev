@@ -22,5 +22,9 @@
   },
   "bugs": {
     "url": "https://github.com/simondengshuaihui/simon-cli-dev/issues"
+  },
+  "gitHead": "0b022858fc70155fcdc43ac68b92f5cf152b6bbc",
+  "publishConfig": {
+    "access": "public"
   }
 }

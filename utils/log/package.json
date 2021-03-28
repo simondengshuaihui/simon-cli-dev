@@ -1,0 +1,35 @@
+{
+  "name": "@simon-clie-dev/log",
+  "version": "0.0.3",
+  "description": "log",
+  "keywords": [
+    "log"
+  ],
+  "author": "dengshuaihui <dengshuaihui@yy.com>",
+  "homepage": "https://github.com/simondengshuaihui/simon-cli-dev#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://npm-registry.yy.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simondengshuaihui/simon-cli-dev.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/simondengshuaihui/simon-cli-dev/issues"
+  },
+  "dependencies": {
+    "npmlog": "^4.1.2"
+  }
+}

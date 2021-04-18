@@ -7,23 +7,75 @@ const semver = require('semver')
 const userHome = require('user-home')
 const minimist = require('minimist')
 const pathExists = require('path-exists').sync
+const commander = require('commander')
 const path = require('path')
 const pkg = require('../package.json')
 const log = require('@simon-cli-dev/log')
 const constant = require('./constant')
+// const init = require('@simon-cli-dev/init')
+const exec = require('@simon-cli-dev/exec')
+
+const program = new commander.Command()
 
 async function core(argv) {
   try {
-    checkPkgVersion()
-    checkNodeVersion()
-    checkRoot()
-    checkUserHome()
-    checkInputArgs()
-    checkEnv()
-    await checkGlobleUpdate()
+    await prepare()
+    registerCommand()
   } catch (e) {
     log.error(e.message)
+    if (process.env.LOG_LEVEL === 'verbose') {
+      console.error(e)
+    }
   }
+}
+
+function registerCommand() {
+  program
+    .version(pkg.version)
+    .name(Object.keys(pkg.bin)[0])
+    .usage('<command> [options]')
+    .option('-d, --debug', '是否开启调试模式', false)
+    .option('-tp, --targetPath <targetPath>', '指定本地调试文件', '')
+
+  program.on('option:targetPath', function () {
+    process.env.CLI_TARGET_PATH = program.opts().targetPath
+  })
+  program.on('option:debug', function () {
+    const options = program.opts()
+    if (options.debug) {
+      process.env.LOG_LEVEL = 'verbose'
+    } else {
+      process.env.LOG_LEVEL = 'info'
+    }
+    log.level = 'verbose'
+  })
+  // 对未知命令监听
+  program.on('command:*', function (obj) {
+    const availableCommand = program.commands.map((cmd) => cmd.name())
+    console.log(colors.red('未知命令:' + obj[0]))
+    console.log(colors.red('可用命令:' + availableCommand.join(',')))
+  })
+
+  program
+    .command('init [projectname]')
+    .option('-f,--force', '是否强制初始化项目')
+    .action(exec)
+
+  program.parse(process.argv)
+  // 如果没有命令行直接触发帮助
+  if (program.args && program.args.length < 1) {
+    program.outputHelp()
+  }
+}
+
+async function prepare() {
+  checkPkgVersion()
+  checkNodeVersion()
+  checkRoot()
+  checkUserHome()
+  // checkInputArgs()
+  checkEnv()
+  await checkGlobleUpdate()
 }
 
 async function checkGlobleUpdate() {
@@ -52,14 +104,17 @@ function checkEnv() {
     })
   }
   createDefaultConfig()
-  log.verbose(process.env.CLI_HOME)
+  log.verbose(process.env.CLI_HOME_PATH)
 }
 
 function createDefaultConfig() {
-  if (process.env.CLI_HOME) {
-    process.env.CLI_HOME = path.join(userHome, constant.CLI_HOME)
+  if (process.env.CLI_HOME_PATH) {
+    process.env.CLI_HOME_PATH = path.join(userHome, constant.CLI_HOME_PATH)
   } else {
-    process.env.CLI_HOME = path.join(userHome, constant.DEFAULT_CLI_HOME)
+    process.env.CLI_HOME_PATH = path.join(
+      userHome,
+      constant.DEFAULT_CLI_HOME_PATH
+    )
   }
 }
 

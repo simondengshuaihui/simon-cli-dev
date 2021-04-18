@@ -1,8 +1,21 @@
 'use strict'
+const path = require('path')
+module.exports = {
+  isObject,
+  formatPath,
+}
 
-module.exports = utils
+function isObject(obj) {
+  return Object.prototype.toString.call(obj) === '[object Object]'
+}
 
-function utils() {
-  console.log('启动cli util')
-  // TODO
+function formatPath(p) {
+  if (p && typeof p === 'string') {
+    const sep = path.sep
+    if (sep === '/') {
+      return p
+    } else {
+      return p.replace(/\\/g, '/')
+    }
+  }
 }

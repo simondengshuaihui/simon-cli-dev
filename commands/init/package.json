@@ -1,16 +1,11 @@
 {
-  "name": "@simon-clie-dev/get-npm-info",
+  "name": "@simon-cli-dev/init",
   "version": "0.0.3",
-  "description": "获取npm包信息",
-  "keywords": [
-    "get",
-    "npm",
-    "info"
-  ],
+  "description": "> TODO: description",
   "author": "dengshuaihui <dengshuaihui@yy.com>",
   "homepage": "https://github.com/simondengshuaihui/simon-cli-dev#readme",
   "license": "ISC",
-  "main": "lib/index.js",
+  "main": "lib/init.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -19,7 +14,7 @@
     "lib"
   ],
   "publishConfig": {
-    "registry": "https://npm-registry.yy.com/"
+    "registry": "https://npm-registry.duowan.com/"
   },
   "repository": {
     "type": "git",
@@ -30,10 +25,5 @@
   },
   "bugs": {
     "url": "https://github.com/simondengshuaihui/simon-cli-dev/issues"
-  },
-  "dependencies": {
-    "axios": "^0.21.1",
-    "semver": "^7.3.5",
-    "url-join": "^4.0.1"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@simon-clie-dev/package",
+  "name": "@simon-cli-dev/package",
   "version": "0.0.3",
   "description": "> TODO: description",
   "author": "dengshuaihui <dengshuaihui@yy.com>",
@@ -27,9 +27,12 @@
     "url": "https://github.com/simondengshuaihui/simon-cli-dev/issues"
   },
   "dependencies": {
-    "@simon-cli-dev/utils": "file:../../utils/utils",
     "@simon-cli-dev/get-npm-info": "file:../../utils/get-npm-info",
+    "@simon-cli-dev/log": "file:../../utils/log",
+    "@simon-cli-dev/utils": "file:../../utils/utils",
+    "fs-extra": "^9.1.0",
     "npminstall": "^4.11.0",
+    "path-exists": "^4.0.0",
     "pkg-dir": "^5.0.0"
   }
 }

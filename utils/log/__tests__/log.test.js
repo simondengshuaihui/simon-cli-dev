@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-const log = require('..');
+const log = require('..')
 
-describe('@simon-clie-dev/log', () => {
-    it('needs tests');
-});
+describe('@simon-cli-dev/log', () => {
+  it('needs tests')
+})

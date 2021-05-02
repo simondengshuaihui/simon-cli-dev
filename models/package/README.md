@@ -1,11 +1,11 @@
-# `@simon-clie-dev/package`
+# `@simon-cli-dev/package`
 
 > TODO: description
 
 ## Usage
 
 ```
-const package = require('@simon-clie-dev/package');
+const package = require('@simon-cli-dev/package');
 
 // TODO: DEMONSTRATE API
 ```

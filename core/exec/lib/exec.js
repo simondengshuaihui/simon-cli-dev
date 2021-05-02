@@ -1,6 +1,6 @@
 'use strict'
-const Package = require('@simon-clie-dev/package')
-const log = require('@simon-clie-dev/log')
+const Package = require('@simon-cli-dev/package')
+const log = require('@simon-cli-dev/log')
 const path = require('path')
 module.exports = exec
 
@@ -23,10 +23,11 @@ async function exec() {
   const packageName = SETTINGS[cmdName]
   const packageVersion = 'latest'
   let pkg
-  // targetPath 不存在的时候
+  // targetPath 不存在的时候用缓存的package
   if (!targetPath) {
     //  自动生成缓存目录
     targetPath = path.resolve(homePath, CACHE_DIR)
+    // 安装目录
     storeDir = path.resolve(targetPath, 'node_modules')
     pkg = new Package({
       targetPath,
@@ -34,8 +35,10 @@ async function exec() {
       packageVersion,
       storeDir,
     })
-    if (pkg.exist()) {
+    // 如果pkg存在
+    if (await pkg.exist()) {
       // 更新
+      await pkg.update()
     } else {
       // 安装
       await pkg.install()
@@ -48,9 +51,10 @@ async function exec() {
     })
   }
   // 获取安装目录,引用执行
-  const rootFile = pkg.getRootPath()
+  const rootFile = pkg.getRootFilePath()
   console.log(rootFile)
   if (rootFile) {
-    require(rootFile).apply(null, arguments)
+    log.verbose(`目标文件地址:${rootFile}`)
+    // require(rootFile).apply(null, arguments)
   }
 }

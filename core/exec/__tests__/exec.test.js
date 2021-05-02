@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-const exec = require('..');
+const exec = require('..')
 
-describe('@simon-clie-dev/exec', () => {
-    it('needs tests');
-});
+describe('@simon-cli-dev/exec', () => {
+  it('needs tests')
+})

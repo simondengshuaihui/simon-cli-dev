@@ -1,11 +1,11 @@
-# `@simon-clie-dev/log`
+# `@simon-cli-dev/log`
 
 > TODO: description
 
 ## Usage
 
 ```
-const log = require('@simon-clie-dev/log');
+const log = require('@simon-cli-dev/log');
 
 // TODO: DEMONSTRATE API
 ```

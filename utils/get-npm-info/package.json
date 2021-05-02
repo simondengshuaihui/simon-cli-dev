@@ -1,5 +1,5 @@
 {
-  "name": "@simon-clie-dev/get-npm-info",
+  "name": "@simon-cli-dev/get-npm-info",
   "version": "0.0.3",
   "description": "获取npm包信息",
   "keywords": [

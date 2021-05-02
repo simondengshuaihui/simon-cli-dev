@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
-const package = require('..');
+const package = require('..')
 
-describe('@simon-clie-dev/package', () => {
-    it('needs tests');
-});
+describe('@simon-cli-dev/package', () => {
+  it('needs tests')
+})

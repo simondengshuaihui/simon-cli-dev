@@ -2,6 +2,7 @@
 const Package = require('@simon-cli-dev/package')
 const log = require('@simon-cli-dev/log')
 const path = require('path')
+const cp = require('child_process')
 module.exports = exec
 
 const SETTINGS = {
@@ -55,6 +56,44 @@ async function exec() {
   console.log(rootFile)
   if (rootFile) {
     log.verbose(`目标文件地址:${rootFile}`)
-    // require(rootFile).apply(null, arguments)
+    try {
+      // 用node子进程调用
+      const args = Array.from(arguments)
+      const cmd = args[args.length - 1]
+      const o = Object.create(null)
+      Object.keys(cmd).forEach((key) => {
+        if (
+          cmd.hasOwnProperty(key) &&
+          !key.startsWith('_') &&
+          key !== 'parent'
+        ) {
+          o[key] = cmd[key]
+        }
+      })
+      args[args.length - 1] = o
+      const code = `require('${rootFile}').call(null,${JSON.stringify(args)})`
+      const child = spawn('node', ['-e', code], {
+        cwd: process.cwd(),
+        stdio: 'inherit',
+      })
+      child.on('error', (e) => {
+        log.error(e.message)
+        process.exit(1)
+      })
+      child.on('exit', (e) => {
+        log.verbose('命令执行成功')
+        process.exit(e)
+      })
+    } catch (err) {
+      log.error(err.message)
+    }
   }
+}
+
+function spawn(command, args, options) {
+  // 兼容windows执行
+  const isWindows = process.platform === 'win32'
+  const cmd = isWindows ? 'cmd' : command
+  const cmdArgs = isWindows ? ['/c'].concat(args) : args
+  return cp.spawn(cmd, cmdArgs, options)
 }

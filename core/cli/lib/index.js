@@ -70,7 +70,6 @@ function registerCommand() {
 
 async function prepare() {
   checkPkgVersion()
-  checkNodeVersion()
   checkRoot()
   checkUserHome()
   // checkInputArgs()
@@ -147,15 +146,6 @@ function checkRoot() {
 
 function checkPkgVersion() {
   log.notice('cli', pkg.version)
-}
-function checkNodeVersion() {
-  const currentVersion = process.version
-  log.info('node version', currentVersion)
-  if (!semver.gt(currentVersion, constant.LOWEST_NODE_VERSION)) {
-    throw new Error(
-      colors.red(`cli 需要安装 node v ${constant.LOWEST_NODE_VERSION} 以上版本`)
-    )
-  }
 }
 
 // 检查版本号

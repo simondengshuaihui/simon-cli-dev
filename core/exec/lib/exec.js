@@ -5,6 +5,7 @@ const path = require('path')
 const cp = require('child_process')
 module.exports = exec
 
+// 定义根据输入的command默认执行的包名
 const SETTINGS = {
   init: 'lodash',
 }
@@ -24,7 +25,7 @@ async function exec() {
   const packageName = SETTINGS[cmdName]
   const packageVersion = 'latest'
   let pkg
-  // targetPath 不存在的时候用缓存的package
+  // targetPath 不存在的时候用默认缓存的package
   if (!targetPath) {
     //  自动生成缓存目录
     targetPath = path.resolve(homePath, CACHE_DIR)
@@ -53,7 +54,6 @@ async function exec() {
   }
   // 获取安装目录,引用执行
   const rootFile = pkg.getRootFilePath()
-  console.log(rootFile)
   if (rootFile) {
     log.verbose(`目标文件地址:${rootFile}`)
     try {
@@ -72,9 +72,10 @@ async function exec() {
       })
       args[args.length - 1] = o
       const code = `require('${rootFile}').call(null,${JSON.stringify(args)})`
+      // -e 代表执行代码
       const child = spawn('node', ['-e', code], {
         cwd: process.cwd(),
-        stdio: 'inherit',
+        stdio: 'inherit', // 继承到主线程
       })
       child.on('error', (e) => {
         log.error(e.message)

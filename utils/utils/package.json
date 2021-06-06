@@ -20,5 +20,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {}
+  "dependencies": {
+    "cli-spinner": "^0.2.10"
+  }
 }

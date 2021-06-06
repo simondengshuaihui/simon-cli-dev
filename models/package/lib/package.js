@@ -15,10 +15,10 @@ class Package {
     if (!options && isObject(options)) {
       throw new Error('Package类的参数非对象')
     }
-    this.targetPath = options.targetPath
+    this.targetPath = options.targetPath  //包路径
     this.packageName = options.packageName
     this.packageVersion = options.packageVersion
-    this.storeDir = options.storeDir
+    this.storeDir = options.storeDir  // 
     // package缓存目录前缀 lodash -> _lodash@4.17.21@lodash
     this.cacheFilePathPrefix = this.packageName.replace('/', '_')
   }

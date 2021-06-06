@@ -95,7 +95,9 @@ async function checkGlobleUpdate() {
 
 function checkEnv() {
   const dotenv = require('dotenv')
+  // userHome -> user/dengshuaihui
   const dotenvPath = path.resolve(userHome, '.env')
+  log.info('dotenvPath:', dotenvPath)
   if (pathExists(dotenvPath)) {
     // 把.env的配置添加到环境变量中
     dotenv.config({
